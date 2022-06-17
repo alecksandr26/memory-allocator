@@ -1,24 +1,33 @@
 N = nasm -f elf64
-C = ld
-CLANG = clang -no-pie
+L = ld
+CLANG = clang -pedantic -no-pie
 
-EXT = main.o
+# The path
+IN = include
+T = test
+
+# THe objecst
 OBJS = alloc.o
-BINS = main ctest
+BINS = $(T)/main.out $(T)/ctest.out
 
-all: main.out ctest.out
+all: $(BINS)
 
 alloc.o: alloc.asm
 	$(N) $< -o $@
 
-main.o: test.asm
+$(T)/main.o: $(T)/test.asm
 	$(N) $< -o $@
 
-main.out: $(EXT) $(OBJS)
-	$(C) $(EXT) $(OBJS) -o $@
+$(T)/main.out: $(T)/main.o $(OBJS)
+	$(L) $(T)/main.o $(OBJS) -o $@
 
-ctest.out: test.c $(OBJS)
+$(T)/ctest.out: $(T)/test.c $(OBJS)
 	$(CLANG) -ggdb $(OBJS) $< -o $@
 
+run_tests:
+	./$(T)/ctest.out
+	./$(T)/main.out
+
 clean:
-	rm $(OBJS) $(EXT) $(MAIN)
+	rm $(OBJS) $(BINS) $(T)/main.o
+
