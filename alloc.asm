@@ -559,8 +559,3 @@ __free_last:
     ret
     
     
-
-
-    ;; void collect()
-    ;; collect: simple garbage collector to the heap
-collect:
