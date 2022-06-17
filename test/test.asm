@@ -2,7 +2,7 @@
 
     ;; These are the functios
     extern alloc
-    extern free
+    extern afree
 
     
     section .data
@@ -66,7 +66,7 @@ loop:
 
     ;; otherwire we free the memory
     mov rdi, qword [addr]
-    call free
+    call afree
 
     jmp loop
     

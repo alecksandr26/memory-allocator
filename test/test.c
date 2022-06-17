@@ -7,7 +7,7 @@
 #include <assert.h>
 
 extern void *alloc(unsigned amount_bytes);
-extern void free(void *addr);
+extern void afree(void *addr);
 
 
 /* There are the testcases */
@@ -16,17 +16,17 @@ void test_heap_extract()
     void *addr1, *addr2, *addr3, *addr4, *addr5;
     
     addr2 = alloc(10);
-    free(addr2);
+    afree(addr2);
 
     addr1 = alloc(15);
-    free(addr1);
+    afree(addr1);
 
     addr4 = alloc(20);
-    free(addr4);
+    afree(addr4);
 
 
     addr5 = alloc(25);
-    free(addr5);
+    afree(addr5);
 
     addr3 = alloc(5);
     assert(addr3 == addr5 && "The addr5 should be the same addres of addr3");
@@ -41,7 +41,7 @@ void test_datatypes()
 
     ptr = alloc(sizeof(long));
     *ptr = 10;
-    free(ptr);
+    afree(ptr);
 
 
     ptr2 = alloc(sizeof(int));
@@ -89,7 +89,7 @@ int stack_pop(Stack *stack)
     node = stack->head;
     stack->head = stack->head->next;
 
-    free(node);
+    afree(node);
     return val;
 }
 

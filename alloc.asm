@@ -15,7 +15,6 @@
     NULL equ 0
     LF equ 0xa
 
-
     ;; Constants of the heap
     
     ;; Capacity of the free address
@@ -28,8 +27,8 @@
     curr_brk dq NULL             ; address of the current heap
 
     ;; Message errors for free
-    free_error_msg db "Error: Invalid address to free", LF, NULL
-    free_error_msg_len equ $ - free_error_msg
+    afree_error_msg db "Error: Invalid address to free", LF, NULL
+    afree_error_msg_len equ $ - afree_error_msg
 
     ;; Message errors for heap insert function 
     heap_insert_error_msg db "Error: Not enough space for free address", LF, NULL
@@ -54,7 +53,7 @@
     
     ;; These are the public methods 
     global alloc
-    global free
+    global afree
 
 
     ;; Some extra functions needed
@@ -517,16 +516,16 @@ __alloc_last:
 
 
 
-    ;; void free(void *addr)
+    ;; void afree(void *addr)
     ;; addr -> rdi              ; the address of the page of memory to free
-    ;; free: free a chunk of memory
-free:
+    ;; afree: free a chunk of memory
+afree:
     ;; get the current address
     mov rax, qword [new_brk]
 
     sub rdi, 2                  ; subtract by 2
     cmp rax, rdi                ; if (rax < rdi)
-    jb __free_error
+    jb __afree_error
 
     
     ;; get the initial address of the heap 
@@ -534,20 +533,20 @@ free:
     add rax, HEAP_FREE_CAPACITY  ; Calculate
 
     cmp rdi, rax                ; if (rdi < rax)
-    jb __free_error
+    jb __afree_error
 
     ;;  If everything looks right try to insert to the heap another free location
     add rdi, 2
     call __heap_insert
     
     
-    jmp __free_last
+    jmp __afree_last
     
-__free_error:                   ; If we receive an invalid address
+__afree_error:                   ; If we receive an invalid address
     mov rax, SYS_write
     mov rdi, STDOUT
-    mov rsi, free_error_msg
-    mov rdx, free_error_msg_len
+    mov rsi, afree_error_msg
+    mov rdx, afree_error_msg_len
     syscall
     
     ;; quit the program
@@ -555,7 +554,6 @@ __free_error:                   ; If we receive an invalid address
     mov rdi, EXIT_FAILURE
     syscall
     
-__free_last:
+__afree_last:
     ret
-    
-    
+        
