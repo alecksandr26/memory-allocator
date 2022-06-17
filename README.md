@@ -1,10 +1,11 @@
 # Memory-Allocator-In-Nasm
 This is my version of my memory allocator in nasm.
 ## Compiling
-To compiled and generate the `alloc.o` just run.
+To compiled and generate the `alloc.o` just run, and you wil have it for any project.
 ```
 $ make
 ```
+And to compile it with your code you only need to use the flag `-no-pie`, because the `alloc.o` it is not an object pie.
 ## For testing
 I write a `main.asm` program which test a little bit the behaivor of the alloc function, also I write c program which loads and use the `free` and `alloc` function.
 ## How works
