@@ -1,5 +1,5 @@
 # Memory-Allocator-In-Nasm
-This is my version of my memory allocator in nasm.
+This is a memory allocator with a runtime of `O(log N)`.
 ## How works
 Basically I move the brk address or break address 8 kilo bytes upper, using the `sys_brk` call, to create an array where I use it to create heap, with that implementation I accomplish a runtime of `o(logn)` when `free` function gets executed. 
 
