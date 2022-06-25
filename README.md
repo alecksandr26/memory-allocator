@@ -16,7 +16,7 @@ Then just compile it with the `alloc.o` file.
 ```
 $ clang -no-pie alloc.o main.c -o main.out
 ```
-## Compiling
+## How to compile it
 To compiled and generate the `alloc.o` just run, and you wil have it for any project.
 ```
 $ make
