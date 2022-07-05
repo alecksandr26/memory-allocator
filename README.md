@@ -12,7 +12,7 @@ To use it you only need to put this lines of code inside of your `.c` code, like
 extern void *alloc(unsigned amount_bytes);
 extern void afree(void *addr);
 ```
-Then just compile it with the `alloc.o` file.
+Then just compile it with the `alloc.o` file, and to compile it with your code you only need to use the flag `-no-pie`, because the `alloc.o` it is not an pie object, then for example.
 ```
 $ clang -no-pie alloc.o main.c -o main.out
 ```
@@ -20,8 +20,4 @@ $ clang -no-pie alloc.o main.c -o main.out
 To compiled and generate the `alloc.o` just run, and you wil have it for any project.
 ```
 $ make
-```
-And to compile it with your code you only need to use the flag `-no-pie`, because the `alloc.o` it is not an pie object, then for example.
-```
-$ clang -no-pie alloc.o main.c -o main.out
 ```
