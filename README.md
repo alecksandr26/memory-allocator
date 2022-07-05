@@ -21,7 +21,7 @@ To compiled and generate the `alloc.o` just run, and you wil have it for any pro
 ```
 $ make
 ```
-And to compile it with your code you only need to use the flag `-no-pie`, because the `alloc.o` it is not an object pie, for example.
+And to compile it with your code you only need to use the flag `-no-pie`, because the `alloc.o` it is not an pie object, then for example.
 ```
 $ clang -no-pie alloc.o main.c -o main.out
 ```
