@@ -6,8 +6,8 @@
 #include <string.h>
 #include <assert.h>
 
-extern void *alloc(unsigned amount_bytes);
-extern void afree(void *addr);
+#include "../include/alloc.h"
+
 
 
 /* There are the testcases */
