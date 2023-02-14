@@ -1,6 +1,8 @@
 N = nasm -f elf64
+N_FLAGS = -g
 L = ld
 C = cc -pedantic -no-pie
+C_FLAGS = -ggdb -Wall
 AR = ar rc
 
 # The path
@@ -20,7 +22,7 @@ OBJS = $(addprefix $(OBJ_DIR)/, memalloc.o)
 LIBS = $(addprefix $(LIB_DIR)/, libmemalloc.a)
 
 # The tests
-TESTS = $(addprefix $(TEST_BIN_DIR)/, test_1.out)
+TESTS = $(addprefix $(TEST_BIN_DIR)/, test_1.out test_2.out)
 
 all: $(OBJ_DIR) $(LIB_DIR) $(TEST_BIN_DIR) $(LIBS) $(TESTS)
 
@@ -39,7 +41,7 @@ $(OBJ_DIR):
 # Compile all the objects
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.asm
 	@echo Compiling: $< -o $@
-	@$(N) $< -o $@
+	@$(N) $(N_FLAGS) $< -o $@
 
 $(LIB_DIR)/%.a: $(OBJS)
 	@echo Archiving: $^ -o $@
@@ -48,7 +50,7 @@ $(LIB_DIR)/%.a: $(OBJS)
 
 $(TEST_BIN_DIR)/%.out: $(TEST_SRC_DIR)/%.c $(LIBS) 
 	@echo Compiling: $^ -o $@
-	@$(C) $^ -o $@
+	@$(C) $(C_FLAGS) $^ -o $@
 
 # To run an specific test
 test_%.out: $(TEST_BIN_DIR)/test_%.out
@@ -62,7 +64,7 @@ test_%.out: $(TEST_BIN_DIR)/test_%.out
 .PHONY: tests 
 tests: $(TESTS) $(notdir $(TESTS))
 
-
+# To clean everything
 clean_$(OBJ_DIR)/%.o:
 	@echo Removing: $(OBJ_DIR)/$(notdir $@)
 	@rm $(OBJ_DIR)/$(notdir $@)
