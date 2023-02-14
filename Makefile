@@ -38,6 +38,10 @@ $(OBJ_DIR):
 	@echo Creating: $@
 	@mkdir -p $@
 
+$(BUILD_DIR):
+	@echo Creating: $@
+	@mkdir -p $@
+
 # Compile all the objects
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.asm
 	@echo Compiling: $< -o $@
@@ -96,4 +100,3 @@ ifneq ("$(wildcard $(TEST_BIN_DIR))", "")
 		@echo Removing: $(TEST_BIN_DIR)
 		@rmdir $(TEST_BIN_DIR)
 endif
-
