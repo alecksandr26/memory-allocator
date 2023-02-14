@@ -1,3 +1,8 @@
+# The project
+obj/*
+lib/*
+build/*
+
 # Prerequisites
 *.d
 

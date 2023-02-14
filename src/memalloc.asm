@@ -52,8 +52,8 @@
     section .text
     
     ;; These are the public methods 
-    global alloc
-    global afree
+    global memalloc
+    global memfree
 
 
     ;; Some extra functions needed
@@ -396,12 +396,11 @@ __alloc_resize_chuck_last:
     mov rax, r12
     ret
 
-  
     
-    ;; void *alloc(unsigned amount_bytes)
-    ;; amount_bytes -> rdi      ; the amount of bytes that we want
-    ;; alloc: return the amount the address of the page of the memory that we want
-alloc:
+    ;; void *memalloc(size_t nbytes)
+    ;; nbytes -> rdi      ; the amount of bytes that we want
+    ;; memalloc: return the amount the address of the page of the memory that we want
+memalloc:
     push rbp
     mov rbp, rsp
     sub rsp, 8                  ; Create the frame to store the amount_bytes
@@ -516,10 +515,10 @@ __alloc_last:
 
 
 
-    ;; void afree(void *addr)
+    ;; void memfree(void *addr)
     ;; addr -> rdi              ; the address of the page of memory to free
-    ;; afree: free a chunk of memory
-afree:
+    ;; memfree: free a chunk of memory
+memfree:
     ;; get the current address
     mov rax, qword [new_brk]
 
@@ -556,4 +555,3 @@ __afree_error:                   ; If we receive an invalid address
     
 __afree_last:
     ret
-        
