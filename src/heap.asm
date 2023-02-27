@@ -18,16 +18,19 @@
 
     ;; Capacity of the free address
     HEAP_FREE_CAPACITY equ 8192         ; 8 kilo bytes
+    global HEAP_FREE_CAPACITY
     HEAP_FREE_CAPACITY_SIZE equ 1024     ; the size of each 1024
-
+    global HEAP_FREE_CAPACITY_SIZE
     ;; the amount of free chucks that we have
-    global heap_size_free
+
     heap_size_free dq 0
+    global heap_size_free
 
     section .bss
     
-    global free_heap
+
     free_heap resq 1                 ; the address where we store the memory possible allocatable memory
+    global free_heap
     
     heap_root_addr resq 1            ; 8 bytes for the heap root address
     
