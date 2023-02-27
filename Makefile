@@ -16,7 +16,7 @@ TEST_BIN_DIR = $(TEST_DIR)/bin
 TEST_SRC_DIR = $(TEST_DIR)/src
 
 # The objects
-OBJS = $(addprefix $(OBJ_DIR)/, memalloc.o)
+OBJS = $(addprefix $(OBJ_DIR)/, memalloc.o heap.o)
 
 # The libs
 LIBS = $(addprefix $(LIB_DIR)/, libmemalloc.a)
